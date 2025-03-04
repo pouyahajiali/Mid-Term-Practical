@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <!-- Card Styling -->
+                <div class="card shadow-lg" style="border-radius: 15px; border: none;">
+                    <div class="card-body p-5" style="background-color: #f9f9f9;">
+                        <!-- Title -->
+                        <h3 class="card-title text-center mb-4" style="color: #333; font-weight: bold; font-size: 1.75rem;">
+                            Create Your Account
+                        </h3>
+
+                        <!-- Error Messages -->
+                        {% if messages %}
+                            <div class="alert alert-danger rounded-3" style="background-color: #ffebee; border-color: #ffcdd2; color: #c62828;">
+                                {% for message in messages %}
+                                    <p class="mb-0">{{ message }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <!-- Registration Form -->
+                        <form method="post">
+                            {% csrf_token %}
+                            <!-- Concordia ID Field -->
+                            <div class="mb-3">
+                                <label for="id_concordia_id" class="form-label" style="color: #555; font-weight: 500;">Concordia ID</label>
+                                <input type="text" name="concordia_id" id="id_concordia_id" class="form-control rounded-pill" placeholder="Enter your Concordia ID" required style="border-color: #ddd; padding: 0.75rem;">
+                            </div>
+
+                            <!-- Password Field -->
+                            <div class="mb-3">
+                                <label for="id_password1" class="form-label" style="color: #555; font-weight: 500;">Password</label>
+                                <input type="password" name="password1" id="id_password1" class="form-control rounded-pill" placeholder="Create a password" required style="border-color: #ddd; padding: 0.75rem;">
+                            </div>
+
+                            <!-- Confirm Password Field -->
+                            <div class="mb-3">
+                                <label for="id_password2" class="form-label" style="color: #555; font-weight: 500;">Confirm Password</label>
+                                <input type="password" name="password2" id="id_password2" class="form-control rounded-pill" placeholder="Confirm your password" required style="border-color: #ddd; padding: 0.75rem;">
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-success w-100 py-2 rounded-pill" style="background-color: #28a745; border: none; font-weight: bold; transition: background-color 0.3s ease;">
+                                Register
+                            </button>
+                        </form>
+
+                        <!-- Login Link -->
+                        <div class="mt-4 text-center">
+                            <p class="mb-0" style="color: #555;">Already have an account?
+                                <a href="{% url 'login' %}" class="text-decoration-none" style="color: #0d6efd; font-weight: 600; transition: color 0.3s ease;">
+                                    Login here
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Textbooks for {{ course_code }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Card for Textbook List -->
+                <div class="card shadow-lg" style="border-radius: 15px; border: none;">
+                    <div class="card-header text-white" style="background: linear-gradient(90deg, #6a11cb, #2575fc); border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                        <h4 class="mb-0 fw-bold">Textbooks for {{ course_code }}</h4>
+                    </div>
+                    <div class="card-body p-4" style="background-color: #f9f9f9;">
+                        <!-- Display Success or Info Messages -->
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-info rounded-3" style="background-color: #e3f2fd; border-color: #b3d4fc; color: #0d6efd;">
+                                    <p class="mb-0">{{ message }}</p>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <!-- List of Textbooks -->
+                        {% if textbooks %}
+                            <ul class="list-group list-group-flush">
+                                {% for textbook in textbooks %}
+                                    <li class="list-group-item px-4 py-3" style="background-color: #fff; border: none;">
+                                        <div>
+                                            <strong style="color: #333;">{{ textbook.title }}</strong> by
+                                            <span style="color: #555;">{{ textbook.author }}</span><br>
+                                            <small class="text-muted">
+                                                Edition: {{ textbook.edition|default:"N/A" }} |
+                                                Condition: {{ textbook.get_condition_display }}
+                                            </small>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <!-- No Textbooks Message -->
+                            <p class="text-center text-muted mb-0">
+                                No textbooks are currently available for this course.
+                            </p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-center" style="background-color: #f9f9f9; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                        <!-- Button to Add a Textbook -->
+                        <a href="{% url 'add_textbook' %}" class="btn btn-primary rounded-pill px-4 py-2" style="background-color: #2575fc; border: none; font-weight: bold; transition: background-color 0.3s ease;">
+                            Add a Textbook
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

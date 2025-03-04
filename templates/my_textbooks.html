@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}My Textbooks{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Card Styling -->
+                <div class="card shadow-lg" style="border-radius: 15px; border: none;">
+                    <div class="card-body p-5" style="background-color: #f9f9f9;">
+                        <!-- Title -->
+                        <h3 class="card-title text-center mb-4" style="color: #333; font-weight: bold; font-size: 1.75rem;">
+                            My Textbooks
+                        </h3>
+
+                        <!-- List of Textbooks -->
+                        {% if textbooks %}
+                            <ul class="list-group list-group-flush">
+                                {% for textbook in textbooks %}
+                                    <li class="list-group-item px-4 py-3 d-flex justify-content-between align-items-center" style="background-color: #fff; border: none;">
+                                        <div>
+                                            <strong style="color: #333;">{{ textbook.title }}</strong> by
+                                            <span style="color: #555;">{{ textbook.author }}</span><br>
+                                            <small class="text-muted">
+                                                Edition: {{ textbook.edition|default:"N/A" }} |
+                                                Condition: {{ textbook.get_condition_display }}
+                                            </small>
+                                        </div>
+                                        <a href="{% url 'delete_textbook' textbook.id %}" class="btn btn-danger btn-sm rounded-pill px-3" style="font-weight: bold; transition: background-color 0.3s ease;">
+                                            Delete
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <!-- No Textbooks Message -->
+                            <p class="text-center text-muted mb-4">
+                                You have not added any textbooks yet.
+                            </p>
+                        {% endif %}
+
+                        <!-- Add Textbook Button -->
+                        <div class="mt-4 text-center">
+                            <a href="{% url 'add_textbook' %}" class="btn btn-primary rounded-pill px-4 py-2" style="background-color: #2575fc; border: none; font-weight: bold; transition: background-color 0.3s ease;">
+                                Add a Textbook
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
